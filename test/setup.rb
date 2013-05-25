@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 
+require 'active_support/all'
 require 'minitest/autorun'
 require 'couchbase'
 require 'couchbase/model'

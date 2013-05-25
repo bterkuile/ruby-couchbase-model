@@ -232,7 +232,7 @@ module Couchbase
         doc['spatial'] = {}
         ['map', 'reduce', 'spatial'].each do |type|
           Configuration.design_documents_paths.each do |path|
-            ff = File.join(path, design_document.to_s, name.to_s, "#{type}.js")
+            ff = File.join(path, self.name.underscore, name.to_s, "#{type}.js")
             if File.file?(ff)
               contents = File.read(ff).strip
               next if contents.empty?
@@ -775,7 +775,7 @@ module Couchbase
     #
     # @since 0.1.0
     def attributes_with_values
-      ret = {:type => model.design_document}
+      ret = { :type => model.name.underscore }
       model.attributes.keys.each do |attr|
         ret[attr] = read_attribute(attr)
       end
