@@ -803,6 +803,14 @@ module Couchbase
       end
     end
 
+    def ==(comparison_object)
+      super ||
+        comparison_object.instance_of?(self.class) &&
+        id.present? &&
+        comparison_object.id == id
+    end
+    alias :eql? :==
+
     # Redefine (if exists) #to_key to use #key if #id is missing
     def to_key
       keys = [id || key]
