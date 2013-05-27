@@ -593,6 +593,12 @@ module Couchbase
       self
     end
 
+    # Destroys the object. The callback wrappers are added later
+    # Basic behaviour is the same as delete.
+    def destroy(options = {})
+      delete(options)
+    end
+
     # Check if the record have +id+ attribute
     #
     # @since 0.0.1
@@ -790,8 +796,8 @@ module Couchbase
       include ActiveModel::Conversion
       include ActiveModel::Validations
 
-      define_model_callbacks :create, :update, :delete, :save
-      [:save, :create, :update, :delete].each do |meth|
+      define_model_callbacks :create, :update, :destroy, :save
+      [:save, :create, :update, :destroy].each do |meth|
         class_eval <<-EOC
           alias #{meth}_without_callbacks #{meth}
           def #{meth}(*args, &block)
