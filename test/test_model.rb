@@ -117,6 +117,12 @@ class TestModel < MiniTest::Unit::TestCase
     assert_equal "This is my first example", post.body
   end
 
+  def test_counting_records
+    assert_equal 0, Post.count
+    Post.create(:title => "Hello, world")
+    assert_equal 1, Post.count
+  end
+
   def test_refreshes_the_attributes_with_reload_method
     orig = Post.create(:title => "Hello, world")
     double = Post.find(orig.id)
